@@ -61,12 +61,16 @@ http.createServer(function(req,res,){
 	            query = runQuery("select * from attendance where date='2018-04-01';",
 	            	function(result){
 	            		res.writeHead(200,{"Content-type":"text/plain"});
-			            var msg = [];
+			            var msg = `[`;
 			            for(var i=0;i<result.length;i++){
-			            	msg[i] = `[{"roll":"`+result[i].rno+`"},{"attendance":"`+result[i].attendance+`"}]`;
+			            	msg[i] += (`{"roll":"`+result[i].rno+`","attendance":"`+result[i].attendance+`"}`);
+			            	if(i != result.length-1){
+			            		msg+=`,`
+			            	}
 			            }
-			            var myjson = JSON.stringify(msg[0]);
-			            console.log(myjson);
+			            msg = `]`
+			            
+			            console.log(msg);
 			            // console.log(msg);
 			            // res.write(msg[0])
 			            res.end();		
