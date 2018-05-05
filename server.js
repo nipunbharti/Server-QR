@@ -3,11 +3,10 @@ var qs = require('querystring');
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "157.50.118.159",
-  port: '3306',
-  user: "qaproot",
-  password: "root123",
-  database: "qap"
+  host: "localhost",
+  user: "root",
+  password: "123",
+  database: "attendance"
 });
 
 function runQuery(query,callback){
@@ -62,13 +61,14 @@ http.createServer(function(req,res,){
 	            query = runQuery("select * from attendance where date='2018-04-01';",
 	            	function(result){
 	            		res.writeHead(200,{"Content-type":"text/plain"});
-			            // var msg = `{ "roll":"`+result.rno+`"}`;
 			            var msg = [];
 			            for(var i=0;i<result.length;i++){
-			            	msg[i] = `{ "roll":"`+result[i].rno+`"}`;
+			            	msg[i] = `[{"roll":"`+result[i].rno+`"},{"attendance":"`+result[i].attendance+`"}]`;
 			            }
-			            console.log(msg);
-			            res.write(msg[0])
+			            var myjson = JSON.stringify(msg[0]);
+			            console.log(myjson);
+			            // console.log(msg);
+			            // res.write(msg[0])
 			            res.end();		
 	            	})
 	            
