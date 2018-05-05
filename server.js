@@ -68,7 +68,7 @@ http.createServer(function(req,res,){
 			            		msg+=`,`
 			            	}
 			            }
-			            msg = `]`
+			            msg += `]`
 			            
 			            console.log(msg);
 			            // console.log(msg);
