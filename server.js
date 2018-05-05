@@ -63,7 +63,7 @@ http.createServer(function(req,res,){
 	            		res.writeHead(200,{"Content-type":"text/plain"});
 			            var msg = `[`;
 			            for(var i=0;i<result.length;i++){
-			            	msg[i] += (`{"roll":"`+result[i].rno+`","attendance":"`+result[i].attendance+`"}`);
+			            	msg += (`{"roll":"`+result[i].rno+`","attendance":"`+result[i].attendance+`"}`);
 			            	if(i != result.length-1){
 			            		msg+=`,`
 			            	}
