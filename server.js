@@ -72,7 +72,7 @@ http.createServer(function(req,res,){
 			            
 			            console.log(msg);
 			            // console.log(msg);
-			            // res.write(msg[0])
+			            res.write(msg)
 			            res.end();		
 	            	})
 	            
