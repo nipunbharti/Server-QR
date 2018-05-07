@@ -4,9 +4,9 @@ var mysql = require('mysql');
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "YOURUSERNAME",
-  password: "YOURPW",
-  database: "YOURDB"
+  user: "har@localhost",
+  password: "abcdef123",
+  database: "IRMS"
 });
 
 con.connect(function(err){
@@ -14,7 +14,7 @@ con.connect(function(err){
 })
 
 function runQuery1(query,callback){
-	
+
 	  console.log("connected");
 	  // var sql = 'select * from department';
 	  var sql = query;
@@ -23,7 +23,7 @@ function runQuery1(query,callback){
 	  		throw err;
 	  	}
 	  	/*
-	
+
 			result is an object array
 			to access elements inside it
 			use:
@@ -36,11 +36,11 @@ function runQuery1(query,callback){
 
 	  	callback(result);
 	  })
-	
+
 }
 
 function runQuery2(query,callback){
-	
+
 	  console.log("connected");
 	  // var sql = 'select * from department';
 	  var sql = query;
@@ -49,7 +49,7 @@ function runQuery2(query,callback){
 	  		throw err;
 	  	}
 	  	/*
-	
+
 			result is an object array
 			to access elements inside it
 			use:
@@ -62,7 +62,7 @@ function runQuery2(query,callback){
 
 	  	callback(result);
 	  })
-	
+
 }
 
 
@@ -82,26 +82,25 @@ http.createServer(function(req,res,){
 	        });
 
 			req.on('end', function () {
-	            var post = qs.parse(body);
-	            console.log(post)
-	            query = runQuery1("select a.name,b.rno,b.attendance from attendance b, student a where date='2018-04-01' and a.rollno = b.rno;",
+	            console.log(body.first)
+	            query = runQuery1("select * from CR;",
 	            	function(result){
 	            		res.writeHead(200,{"Content-type":"text/plain"});
-			            var msg = `[`;
-			            for(var i=0;i<result.length;i++){
-			            	msg += (`{"name":"`+result[i].name+`","roll":"`+result[i].rno+`","attendance":"`+result[i].attendance+`"}`);
-			            	if(i != result.length-1){
-			            		msg+=`,`
-			            	}
-			            }
-			            msg += `]`
-			            
-			            console.log(msg);
+			            // var msg = `[`;
+			            // for(var i=0;i<result.length;i++){
+			            // 	msg += (`{"name":"`+result[i].name+`","roll":"`+result[i].rno+`","attendance":"`+result[i].attendance+`"}`);
+			            // 	if(i != result.length-1){
+			            // 		msg+=`,`
+			            // 	}
+			            // }
+			            // msg += `]`
+
+
 			            // console.log(msg);
-			            res.write(msg)
-			            res.end();		
+			            // res.write(0)
+			            res.end();
 	            	})
-	            
+
 	        })
 	}
 	if (req.method == "POST" && req.url == "/n2/") {
@@ -131,16 +130,14 @@ http.createServer(function(req,res,){
 			            	}
 			            }
 			            msg += `]`
-			            
+
 			            console.log(msg);
 			            // console.log(msg);
 			            res.write(msg)
-			            res.end();		
+			            res.end();
 	            	})
-	            
+
 	        })
 	}
-	
+
 }).listen(3000,function(){console.log("started.. 3000")})
-
-
